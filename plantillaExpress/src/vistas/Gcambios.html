@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardando cambios en Git</title>
+    <link type="text/css" rel="stylesheet" href="../css/cambios.css">
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid bg-primary">
+        <div class="container">
+            <nav class="navbar  navbar-expand-lg navbar-dark mb-2">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">
+                    <img src="../Img/Logo.png" width="30" height="30" class="mx-2">
+                    Tutorial de Git en Express
+                  </a>
+ 
+                  <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                        <a class="nav-link active" href="/">Home
+                          <span class="visually-hidden">(current)</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/config">configuración</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/repositorio">Repositorio Git</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/GCambios">Guardando Cambios</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/Gitignore">Git ignore</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="slide">   
+        <img src="../Img/commit.png" class="img-fluid img-thumbnail">     
+    </div>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="content">
+                        <h2 class="text-warning">Guardando cambios en el repositorio</h2>
+
+                        <p>Ya tienes un repositorio Git y un checkout o copia de trabajo de los archivos de 
+                         dicho proyecto. El siguiente paso es realizar algunos cambios y confirmar instantáneas
+                         de esos cambios en el repositorio cada vez que el proyecto alcance un estado que quieras 
+                         conservar.</p>
+
+                        <p>Recuerda que cada archivo de tu repositorio puede tener dos estados: rastreados y sin 
+                         rastrear. Los archivos rastreados (tracked files en inglés) son todos aquellos archivos 
+                         que estaban en la última instantánea del proyecto; pueden ser archivos sin modificar, 
+                         modificados o preparados. Los archivos sin rastrear son todos los demás - cualquier otro 
+                         archivo en tu directorio de trabajo que no estaba en tu última instantánea y que no está 
+                         en el área de preparación (staging area). Cuando clonas por primera vez un repositorio, 
+                         todos tus archivos estarán rastreados y sin modificar pues acabas de sacarlos y aun no 
+                         han sido editados.</p>
+
+                         <p>Mientras editas archivos, Git los ve como modificados, pues han sido cambiados desde su 
+                            último commit. Luego preparas estos archivos modificados y finalmente confirmas todos los 
+                            cambios preparados, y repites el ciclo</p>
+                        
+                        <div id="img-lifecycle">
+                            <img src="../Img/lifecycle.png" class="img-fluid">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="contentdos">
+
+                        
+                        <h4 class="text-warning">Revisando el Estado de tus Archivos</h4> 
+                        <p>La herramienta principal para determinar qué archivos están en qué estado es el comando git status. 
+                           Si ejecutas este comando inmediatamente después de clonar un repositorio, deberías ver algo como 
+                           esto:</p>
+                        <ul class="list-group">
+                        <li class="list-group-item">$ git status</li>
+                        <li class="list-group-item">On branch master</li>
+                        <li class="list-group-item">nothing to commit, working directory clea</li>
+                        </ul>
+                        <p id="under-list">Esto significa que tienes un directorio de trabajo limpio - en otras palabras, que no 
+                           hay archivos rastreados y modificados. Además, Git no encuentra archivos sin rastrear, 
+                           de lo contrario aparecerían listados aquí. Finalmente, el comando te indica en cuál rama 
+                           estás y te informa que no ha variado con respecto a la misma rama en el servidor. Por ahora, 
+                           la rama siempre será “master”, que es la rama por defecto; no le prestaremos atención de 
+                           momento.</p>
+                        <p>Supongamos que añades un nuevo archivo a tu proyecto, un simple README. Si el archivo no 
+                           existía antes y ejecutas git status, verás el archivo sin rastrear de la siguiente manera:</p>
+
+                        <ul class="list-group">
+                        <li class="list-group-item">$ echo 'My Project' > README</li>
+                        <li class="list-group-item">$ git status</li>
+                        <li class="list-group-item">On branch master</li>
+                        <li class="list-group-item">Untracked files:</li>
+                        <li class="list-group-item"> README</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-warning">Rastrear Archivos Nuevos</h4>
+                <p>Para comenzar a rastrear un archivo debes usar el comando git add. Para comenzar a rastrear el archivo README, puedes ejecutar lo siguiente</p>
+                <p>$ git config --global core.editor emacs</p>
+                <p>Si quieres comprobar tu configuración, puedes usar el comando git config --list para mostrar 
+                   todas las propiedades que Git ha configurado:</p>
+                <strong>$ git add README</strong>
+
+                <p>Ahora si vuelves a ver el estado del proyecto, verás que el archivo README está siendo
+                   rastreado y está preparado para ser confirmado:</p>
+                <ul class="list-group">
+                <li class="list-group-item">$ git status</li>
+                <li class="list-group-item">On branch master</li>
+                <li class="list-group-item">Changes to be committed:</li>
+                <li class="list-group-item">  (use "git reset HEAD <file>..." to unstage)</li>
+                <li class="list-group-item">new file:   README</li>
+                </ul>
+                
+                <p id="under-list">Puedes ver que está siendo rastreado porque aparece luego del encabezado “Cambios a 
+                 ser confirmados” (“Changes to be committed” en inglés). Si confirmas en este punto, se 
+                 guardará en el historial la versión del archivo correspondiente al instante en que 
+                 ejecutaste git add. Anteriormente cuando ejecutaste git init, ejecutaste luego git add 
+                 (files) - lo cual inició el rastreo de archivos en tu directorio. El comando git add 
+                 puede recibir tanto una ruta de archivo como de un directorio; si es de un directorio, 
+                 el comando añade recursivamente los archivos que están dentro de él.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-primary text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+    
+            <!-- Twitter -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+    
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+    
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+    
+            <!-- Linkedin -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+    
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Codigo Javascript -->
+        <% function made() {return "Elias Sanchez Garcia"} %>
+        <%= new Date()%> 
+        <p class="text-center">Esta pagina fue hecha por: <%= made();%></p>
+    
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2022 Copyright:
+          <a class="text-white" href="https://https://git-scm.com//">https://git-scm.com/</a>
+        </div>
+    
+    </footer>
+    <script src="https://kit.fontawesome.com/5dd66e8dd4.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
